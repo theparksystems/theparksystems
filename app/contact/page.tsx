@@ -3,19 +3,19 @@ import Link from "next/link";
 const contactEmail = "theparksystems22@gmail.com";
 
 export const metadata = {
-  title: "Contact | PARKSystems Corporation",
-  description: "Contact PARKSystems Corporation.",
+  title: "Contact | The Park Systems",
+  description: "Contact The Park Systems.",
 };
 
 export default function ContactPage() {
   return (
     <main className="contactPage">
-      <nav className="topbar" aria-label="Contact navigation">
-        <Link className="brand" href="/">
+      <nav className="siteHeader" aria-label="Contact navigation">
+        <Link className="brandMark" href="/">
           <span>P</span>
-          <strong>PARKSystems Corporation</strong>
+          <strong>The Park Systems</strong>
         </Link>
-        <div className="navlinks">
+        <div className="siteNav">
           <Link href="/">Landing</Link>
           <Link href="/contact">Contact</Link>
         </div>
@@ -24,8 +24,8 @@ export default function ContactPage() {
       <section className="section contactShell">
         <div>
           <p className="kicker">CONTACT</p>
-          <h1>Contact PARKSystems Corporation</h1>
-          <p className="lede">Global Intelligence Agency.</p>
+          <h1>Contact The Park Systems</h1>
+          <p className="lede">Bounty Cell Operations.</p>
         </div>
 
         <aside className="statusPanel contactPanel" aria-label="Contact details">
