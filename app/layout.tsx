@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "PARKSystems Corporation",
-  description: "Global Intelligence Agency.",
+  description: "Global Intelligence Agency. AI-operated COO agent loop.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

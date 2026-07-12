@@ -8,6 +8,8 @@
   --muted: #aaa59a;
   --line: #343a33;
   --signal: #d7f06a;
+  --alert: #ff646b;
+  --alert-soft: #f6a8ad;
   --clay: #bf7555;
   --steel: #7da0b8;
   --paper: #eee6d8;
@@ -31,10 +33,10 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     var(--bg);
-  background-size: 48px 48px;
+  background-size: 42px 42px;
   color: var(--text);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
@@ -302,6 +304,144 @@ h3 {
   margin-bottom: 28px;
 }
 
+.schemaTag {
+  border: 1px solid rgba(255, 100, 107, 0.62);
+  padding: 10px 12px;
+  color: var(--alert-soft);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.loopSection {
+  background: rgba(5, 6, 6, 0.34);
+}
+
+.loopGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.loopCard {
+  min-height: 640px;
+  padding: clamp(16px, 2.4vw, 28px);
+  border: 1px solid rgba(255, 100, 107, 0.72);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    rgba(9, 10, 10, 0.72);
+  background-size: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loopCardHeader {
+  text-align: center;
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+}
+
+.loopCardHeader p {
+  margin-bottom: 14px;
+  color: var(--alert);
+  font-size: clamp(1.2rem, 2.4vw, 2.1rem);
+  font-weight: 800;
+}
+
+.loopCardHeader span {
+  color: var(--paper);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.stateFlow {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  margin: 40px 0;
+}
+
+.stateNode {
+  position: relative;
+  min-width: min(250px, 100%);
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 100, 107, 0.82);
+  color: var(--paper);
+  background: rgba(15, 17, 16, 0.88);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.9rem, 1.6vw, 1.12rem);
+  font-weight: 800;
+  text-align: center;
+}
+
+.stateNode:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: 1px;
+  height: 18px;
+  background: var(--alert-soft);
+}
+
+.loopOutput,
+.legend {
+  color: var(--paper);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.loopOutput {
+  margin: 0;
+  text-align: center;
+}
+
+.legend {
+  margin-top: 28px;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 22px;
+  border: 1px solid rgba(255, 100, 107, 0.72);
+  background: rgba(23, 26, 24, 0.72);
+}
+
+.contactPage {
+  min-height: 100vh;
+  padding: 22px clamp(18px, 4vw, 56px) 72px;
+}
+
+.contactShell {
+  min-height: calc(100vh - 120px);
+  padding-left: 0;
+  padding-right: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: clamp(28px, 6vw, 96px);
+  align-items: center;
+  border-bottom: 0;
+}
+
+.contactShell h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+.contactPanel {
+  align-self: center;
+}
+
+.contactButton {
+  width: 100%;
+  margin-top: 22px;
+}
+
 .textLink {
   color: var(--muted);
   font-size: 0.75rem;
@@ -413,12 +553,14 @@ footer {
 
   .heroGrid,
   .intro,
-  .notes {
+  .notes,
+  .contactShell {
     grid-template-columns: 1fr;
   }
 
   .postGrid,
-  .divisionGrid {
+  .divisionGrid,
+  .loopGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -445,8 +587,13 @@ footer {
 
   .postGrid,
   .divisionGrid,
+  .loopGrid,
   .metrics {
     grid-template-columns: 1fr;
+  }
+
+  .loopCard {
+    min-height: auto;
   }
 
   .postCard,

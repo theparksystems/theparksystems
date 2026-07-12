@@ -1,6 +1,31 @@
 import Link from "next/link";
 
-const contactEmail = "theparksystems22@gmail.com";
+const loops = [
+  {
+    id: "LACI_RECON LOOP",
+    label: "Recon",
+    state: "ACTIVE",
+    cadence: "100ms",
+    stages: ["IDLE", "CRAWLING", "ENRICHING", "PUBLISHING", "IDLE"],
+    output: "EVENT STREAM -> SCOUT_INTAKE",
+  },
+  {
+    id: "LACI_QUANT LOOP",
+    label: "Quant",
+    state: "ACTIVE",
+    cadence: "100ms",
+    stages: ["QUEUE", "IDLE", "ANALYZING", "REPRIORITIZING", "REPORTING"],
+    output: "METRIC CONSUMPTION -> PRIORITY RECALL -> QUEUE UPDATE",
+  },
+  {
+    id: "LACI_OPS LOOP",
+    label: "Ops",
+    state: "ACTIVE",
+    cadence: "100ms",
+    stages: ["IDLE", "AUDITING", "TUNING", "ALERTING", "CONFIG_CHANGES"],
+    output: "RULE UPDATES -> THRESHOLD ADJUST -> ALERT DISPATCH",
+  },
+];
 
 export default function Home() {
   return (
@@ -12,27 +37,33 @@ export default function Home() {
             <strong>PARKSystems Corporation</strong>
           </Link>
           <div className="navlinks">
+            <Link href="#model">COO Loop</Link>
             <Link href="#about">About</Link>
-            <Link href="#services">What We Do</Link>
-            <Link href="#contact">Contact</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </nav>
 
         <div className="heroGrid">
           <div className="heroCopy">
-            <p className="kicker">PARKSYSTEMS CORPORATION</p>
-            <h1>PARKSystems Corporation</h1>
-            <p className="lede">Global Intelligence Agency.</p>
+            <p className="kicker">GLOBAL INTELLIGENCE AGENCY</p>
+            <h1>AI-operated intelligence command loop.</h1>
+            <p className="lede">
+              PARKSystems Corporation replaces core operating employees with an
+              AI COO agent loop for recon, quant, and operations control.
+            </p>
             <div className="actions">
-              <Link className="button primary" href={`mailto:${contactEmail}`}>
-                Contact: {contactEmail}
+              <Link className="button primary" href="#model">
+                View operating loop
+              </Link>
+              <Link className="button secondary" href="/contact">
+                Contact
               </Link>
             </div>
           </div>
 
           <aside className="statusPanel" aria-label="Company details">
             <div className="panelHeader">
-              <span>LEGAL NAME</span>
+              <span>COO LOOP</span>
               <strong>ACTIVE</strong>
             </div>
             <dl className="metrics">
@@ -41,15 +72,55 @@ export default function Home() {
                 <dd>PARKSystems Corporation</dd>
               </div>
               <div>
-                <dt>Description</dt>
+                <dt>Descriptor</dt>
                 <dd>Global Intelligence Agency</dd>
               </div>
               <div>
-                <dt>Contact</dt>
-                <dd>{contactEmail}</dd>
+                <dt>Operating Core</dt>
+                <dd>AI Agents</dd>
               </div>
             </dl>
           </aside>
+        </div>
+      </section>
+
+      <section className="section loopSection" id="model">
+        <div className="sectionHeader">
+          <div>
+            <p className="kicker">CURRENT COMPANY COO AGENT LOOP</p>
+            <h2>LACI research and quant loops</h2>
+          </div>
+          <span className="schemaTag">SCHEMATIC v1.0</span>
+        </div>
+
+        <div className="loopGrid" aria-label="AI COO operating loops">
+          {loops.map((loop) => (
+            <article className="loopCard" key={loop.id}>
+              <div className="loopCardHeader">
+                <p>[ {loop.id} ]</p>
+                <span>
+                  TICK • {loop.cadence} • STATE: {loop.state}
+                </span>
+              </div>
+
+              <div className="stateFlow">
+                {loop.stages.map((stage) => (
+                  <div className="stateNode" key={`${loop.id}-${stage}`}>
+                    [ {stage} ]
+                  </div>
+                ))}
+              </div>
+
+              <p className="loopOutput">OUTPUT: {loop.output}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="legend">
+          <span>[ ] = STATE</span>
+          <span>{"->"} = DATA FLOW</span>
+          <span>TICK = 100ms LOOP CYCLE</span>
+          <span>COORDINATED VIA SCOUT_INTAKE / QUEUE / CONFIG</span>
         </div>
       </section>
 
@@ -61,29 +132,9 @@ export default function Home() {
         <p>Global Intelligence Agency.</p>
       </section>
 
-      <section className="section intro" id="services">
-        <div>
-          <p className="kicker">WHAT WE DO</p>
-          <h2>Global Intelligence Agency</h2>
-        </div>
-        <p>PARKSystems Corporation operates as a Global Intelligence Agency.</p>
-      </section>
-
-      <section className="section intro" id="contact">
-        <div>
-          <p className="kicker">CONTACT</p>
-          <h2>Contact PARKSystems Corporation</h2>
-        </div>
-        <p>
-          <Link className="textLink contactLink" href={`mailto:${contactEmail}`}>
-            Contact: {contactEmail}
-          </Link>
-        </p>
-      </section>
-
       <footer>
         <span>PARKSystems Corporation</span>
-        <Link href={`mailto:${contactEmail}`}>Contact: {contactEmail}</Link>
+        <Link href="/contact">Contact</Link>
       </footer>
     </main>
   );
