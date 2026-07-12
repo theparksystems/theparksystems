@@ -1,149 +1,89 @@
 import Link from "next/link";
-import { divisions, operatingNotes, posts, signalTags } from "./content";
+
+const contactEmail = "theparksystems22@gmail.com";
 
 export default function Home() {
-  const featured = posts[0];
-
   return (
     <main>
       <section className="hero" id="top">
         <nav className="topbar" aria-label="Primary navigation">
           <Link className="brand" href="#top" aria-label="PARKSystems home">
             <span>P</span>
-            <strong>PARKSystems</strong>
+            <strong>PARKSystems Corporation</strong>
           </Link>
           <div className="navlinks">
-            <Link href="#laci">LACI</Link>
-            <Link href="#updates">Updates</Link>
-            <Link href="#network">Network</Link>
-            <Link href="mailto:principal@parksystemscorporation.com">Contact</Link>
+            <Link href="#about">About</Link>
+            <Link href="#services">What We Do</Link>
+            <Link href="#contact">Contact</Link>
           </div>
         </nav>
 
         <div className="heroGrid">
           <div className="heroCopy">
-            <p className="kicker">PSC-002 // BUILD 2026.07 // PUBLIC SIGNAL</p>
+            <p className="kicker">PARKSYSTEMS CORPORATION</p>
             <h1>PARKSystems Corporation</h1>
-            <p className="lede">
-              Sovereign systems for complex orchestration. Local-first
-              intelligence, operational memory, and public field notes from the
-              stack.
-            </p>
+            <p className="lede">Global Intelligence Agency.</p>
             <div className="actions">
-              <Link className="button primary" href="#updates">
-                Read the feed
-              </Link>
-              <Link className="button secondary" href="#laci">
-                View the stack
+              <Link className="button primary" href={`mailto:${contactEmail}`}>
+                Contact: {contactEmail}
               </Link>
             </div>
           </div>
 
-          <aside className="statusPanel" aria-label="System status">
+          <aside className="statusPanel" aria-label="Company details">
             <div className="panelHeader">
-              <span>PUBLIC NODE</span>
-              <strong>ONLINE</strong>
+              <span>LEGAL NAME</span>
+              <strong>ACTIVE</strong>
             </div>
             <dl className="metrics">
               <div>
-                <dt>Post mode</dt>
-                <dd>Manual</dd>
+                <dt>Entity</dt>
+                <dd>PARKSystems Corporation</dd>
               </div>
               <div>
-                <dt>Source</dt>
-                <dd>C:\laci</dd>
+                <dt>Description</dt>
+                <dd>Global Intelligence Agency</dd>
               </div>
               <div>
-                <dt>Stack</dt>
-                <dd>Static</dd>
-              </div>
-              <div>
-                <dt>Deploy</dt>
-                <dd>Railway</dd>
+                <dt>Contact</dt>
+                <dd>{contactEmail}</dd>
               </div>
             </dl>
-            <div className="signalStrip" aria-label="Covered signal types">
-              {signalTags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
           </aside>
         </div>
       </section>
 
-      <section className="section intro" id="laci">
+      <section className="section intro" id="about">
         <div>
-          <p className="kicker">LACI // LOCAL AUTONOMOUS CONTEXT INTERFACE</p>
-          <h2>The private system writes. The public site publishes.</h2>
+          <p className="kicker">ABOUT US</p>
+          <h2>PARKSystems Corporation</h2>
+        </div>
+        <p>Global Intelligence Agency.</p>
+      </section>
+
+      <section className="section intro" id="services">
+        <div>
+          <p className="kicker">WHAT WE DO</p>
+          <h2>Global Intelligence Agency</h2>
+        </div>
+        <p>PARKSystems Corporation operates as a Global Intelligence Agency.</p>
+      </section>
+
+      <section className="section intro" id="contact">
+        <div>
+          <p className="kicker">CONTACT</p>
+          <h2>Contact PARKSystems Corporation</h2>
         </div>
         <p>
-          LACI remains an internal operating surface. This site is the public
-          edge: selected analysis, build notes, research drops, and corporate
-          signals pasted in when they are ready to leave the private workspace.
-        </p>
-      </section>
-
-      <section className="section feed" id="updates">
-        <div className="sectionHeader">
-          <div>
-            <p className="kicker">PUBLIC FEED</p>
-            <h2>Latest transmissions</h2>
-          </div>
-          <Link className="textLink" href={`/analysis/${featured.slug}`}>
-            Featured note
+          <Link className="textLink contactLink" href={`mailto:${contactEmail}`}>
+            Contact: {contactEmail}
           </Link>
-        </div>
-
-        <div className="postGrid">
-          {posts.map((post) => (
-            <article className="postCard" key={post.slug}>
-              <div className="postMeta">
-                <span>{post.date}</span>
-                <span>{post.domain}</span>
-              </div>
-              <h3>{post.title}</h3>
-              <p>{post.summary}</p>
-              <Link href={`/analysis/${post.slug}`}>Read note</Link>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section network" id="network">
-        <div className="sectionHeader">
-          <div>
-            <p className="kicker">OPERATING NETWORK</p>
-            <h2>Divisions in public view</h2>
-          </div>
-        </div>
-
-        <div className="divisionGrid">
-          {divisions.map((division) => (
-            <article className="divisionCard" key={division.name}>
-              <span>{division.code}</span>
-              <h3>{division.name}</h3>
-              <p>{division.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section notes">
-        <div>
-          <p className="kicker">PUBLICATION RULES</p>
-          <h2>Quiet infrastructure. Clear output.</h2>
-        </div>
-        <div className="noteList">
-          {operatingNotes.map((note) => (
-            <p key={note}>{note}</p>
-          ))}
-        </div>
+        </p>
       </section>
 
       <footer>
         <span>PARKSystems Corporation</span>
-        <span>Built for Information Sovereignty</span>
-        <Link href="https://parksystemscorporation.com">Original site</Link>
+        <Link href={`mailto:${contactEmail}`}>Contact: {contactEmail}</Link>
       </footer>
     </main>
   );
