@@ -18,8 +18,8 @@ pnpm start
 ```
 
 `pnpm start` launches `server.mjs`, which reads Railway's `PORT` environment
-variable and binds to `0.0.0.0`, so Railway can attach its generated domain or
-your custom domain automatically.
+variable, defaults to port `8080`, and binds to `0.0.0.0`, so Railway can attach
+its generated domain or your custom domain automatically.
 
 ## Manual publishing
 
