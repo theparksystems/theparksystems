@@ -18,7 +18,11 @@ function solanaTipLink(amount: string) {
   return `solana:${solanaWallet}?${params.toString()}`;
 }
 
-export function TipJar() {
+type TipJarProps = {
+  variant?: "panel" | "hero";
+};
+
+export function TipJar({ variant = "panel" }: TipJarProps) {
   const [copyLabel, setCopyLabel] = useState("Copy");
   const [walletNote, setWalletNote] = useState("Mainnet receive wallet");
 
@@ -37,7 +41,7 @@ export function TipJar() {
   }
 
   return (
-    <section className="tipJar" aria-labelledby="tip-jar-title">
+    <section className={`tipJar ${variant === "hero" ? "heroTipJar" : ""}`} aria-labelledby="tip-jar-title">
       <div className="tipJarHead">
         <div>
           <p className="panelKicker">SOLANA TIP JAR</p>

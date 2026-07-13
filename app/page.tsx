@@ -27,20 +27,12 @@ const commodityCalls = [
     confidence: "--",
   },
   {
-    commodity: "GOLD",
-    action: "NULL",
-    className: "null",
-    thesis: "No active LACI recommendation loaded.",
-    horizon: "--",
-    confidence: "--",
-  },
-  {
     commodity: "SILVER",
-    action: "NULL",
-    className: "null",
-    thesis: "No active LACI recommendation loaded.",
-    horizon: "--",
-    confidence: "--",
+    action: "BUY",
+    className: "buy",
+    thesis: "Buy signal active. Watch pullback entries and liquidity.",
+    horizon: "7-30D",
+    confidence: "ACTIVE",
   },
   {
     commodity: "WHEAT",
@@ -117,6 +109,7 @@ export default function Home() {
               Request Market Brief
             </Link>
           </div>
+          <TipJar variant="hero" />
         </div>
 
         <aside className="analysisPanel" aria-labelledby="analysis-title">
@@ -187,7 +180,6 @@ export default function Home() {
             </div>
           </dl>
 
-          <TipJar />
         </aside>
       </section>
 
