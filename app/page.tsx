@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TipJar } from "./TipJar";
 
 const commodityCalls = [
   {
@@ -185,6 +186,8 @@ export default function Home() {
               <dd>Analyst reviewed</dd>
             </div>
           </dl>
+
+          <TipJar />
         </aside>
       </section>
 
