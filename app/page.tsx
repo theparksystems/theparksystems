@@ -1,198 +1,174 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
 
-const valueProps = [
-  {
-    callsign: "R-01",
-    title: "Autonomous Recon",
-    description: "Crawls, enriches, and routes fresh attack surface.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 12h5l2-7 4 14 2-7h5" />
-        <circle cx="12" cy="12" r="9" />
-      </svg>
-    ),
-  },
-  {
-    callsign: "Q-02",
-    title: "Tick-Based Execution",
-    description: "Priority queue > human triage. Every 100ms.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
-        <path d="M7.8 7.8 5 5M16.2 16.2 19 19M16.2 7.8 19 5M7.8 16.2 5 19" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-  },
-  {
-    callsign: "O-03",
-    title: "Commander Override",
-    description: "Humans set thresholds. Agents execute the loop.",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 5h16v10H7l-3 3V5Z" />
-        <path d="M8 9h8M8 12h5" />
-      </svg>
-    ),
-  },
+const marketFeed = [
+  ["Sector focus", "Energy, shipping, supply-chain risk"],
+  ["Signal strength", "Updated from LACI market reports"],
+  ["Opportunity band", "Custom brief available"],
 ];
 
-const loopColumns = [
-  {
-    title: "SCOUT",
-    nodes: ["SCAN", "CRAWL", "ENRICH", "INTAKE"],
-  },
-  {
-    title: "STRIKE",
-    nodes: ["QUEUE", "ANALYZE", "PRIORITIZE", "REPORT"],
-  },
-  {
-    title: "EXTRACT",
-    nodes: ["AUDIT", "TUNE", "ALERT", "REDEPLOY"],
-  },
+const predictionFeed = [
+  ["Likely move", "Latest prediction posts here"],
+  ["Risk trigger", "Needs report input"],
+  ["Next action", "Hold for LACI export"],
 ];
 
-const proofLogos = ["HackerOne", "Bugcrowd", "Intigriti"];
+const reportFeed = [
+  ["Latest report", "Generated from LACI Market Analyst"],
+  ["Market brief", "Posted from reviewed LACI output"],
+  ["Prediction memo", "Archived with source notes"],
+];
+
+const offerTiers = [
+  ["$49", "quick signal read"],
+  ["$99", "custom 24-hour brief"],
+  ["$250", "decision memo"],
+];
+
+const audiences = [
+  "Energy, logistics, shipping, and supply-chain operators.",
+  "Small funds, traders, founders, and operators with exposure.",
+  "Teams deciding whether to buy, hedge, delay, or accelerate.",
+];
+
+function FeedList({
+  items,
+  label,
+}: {
+  items: string[][];
+  label: string;
+}) {
+  return (
+    <ul className="analysisFeed" aria-label={label}>
+      {items.map(([key, value]) => (
+        <li key={key}>
+          <span>{key}</span>
+          <strong>{value}</strong>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="opsShell">
-      <header className="siteHeader">
-        <Link className="brandMark" href="/" aria-label="The Park Systems home">
-          <span>TPS</span>
-          <strong>The Park Systems</strong>
+    <main className="pageShell" id="top">
+      <header className="topbar">
+        <Link className="brand" href="/" aria-label="The Park Systems home">
+          <span className="brandMark">TPS</span>
+          <strong>THE PARK SYSTEMS</strong>
         </Link>
-        <nav className="siteNav" aria-label="Primary navigation">
+        <nav className="navLinks" aria-label="Primary navigation">
           <Link href="#ops">Ops</Link>
-          <Link href="#demo">Demo</Link>
+          <Link href="#contact">Offer</Link>
           <Link href="#proof">Proof</Link>
           <Link href="/contact">Contact</Link>
         </nav>
       </header>
 
-      <section className="terminalHero" id="top">
-        <div className="heroTerminal">
-          <div className="terminalBar" aria-hidden="true">
+      <section className="heroGrid" id="ops">
+        <div className="heroCard">
+          <div className="windowDots" aria-hidden="true">
             <span />
             <span />
             <span />
           </div>
           <p className="eyebrow">BOUNTY CELL OPERATIONS // LIVE COMMAND</p>
           <h1>
-            You don&apos;t manage hackers.
-            <span>You deploy systems.</span>
+            <span>YOU DON&apos;T</span>
+            <span>MANAGE HACKERS.</span>
+            <span className="outline">YOU DEPLOY</span>
+            <span className="outline">SYSTEMS.</span>
           </h1>
-          <p className="typeLine" aria-label="Scout. Strike. Extract.">
-            <span>SCOUT. STRIKE. EXTRACT.</span>
-          </p>
-          <p className="heroCopy">
+          <p className="tagline">SCOUT. STRIKE. EXTRACT.</p>
+          <p className="summary">
             Autonomous teams that hunt 24/7. Recon loops find surface area,
             quant loops rank targets, ops loops retune the cell.
           </p>
           <div className="heroActions">
-            <Link className="commandButton" href="/contact">
+            <Link className="button primary" href="/contact">
               Deploy Your Squad
             </Link>
-            <Link className="ghostButton" href="#demo">
-              Watch the loop
+            <Link className="button secondary" href="#contact">
+              Request Market Brief
             </Link>
           </div>
         </div>
 
-        <aside className="missionPanel" aria-label="Mission telemetry">
-          <div className="panelRow">
-            <span>STATUS</span>
-            <strong>ARMED</strong>
+        <aside className="analysisPanel" aria-labelledby="analysis-title">
+          <div className="panelHead">
+            <div>
+              <p className="panelKicker">LIVE ANALYSIS TAB</p>
+              <h2 id="analysis-title">Market Analysis</h2>
+            </div>
+            <span>READY</span>
           </div>
-          <div className="panelRow">
-            <span>CADENCE</span>
-            <strong>100MS</strong>
+
+          <div className="tabList" aria-label="Analysis views">
+            <span>MARKET</span>
+            <span>PREDICT</span>
+            <span>REPORTS</span>
           </div>
-          <div className="panelRow">
-            <span>MODE</span>
-            <strong>AUTONOMOUS</strong>
-          </div>
-          <div className="panelFeed">
-            <p>&gt; scout_intake hydrated</p>
-            <p>&gt; priority queue recalculated</p>
-            <p>&gt; config thresholds adjusted</p>
-          </div>
+
+          <dl className="metricGrid">
+            <div>
+              <dt>SOURCE</dt>
+              <dd>C:\laci reports</dd>
+            </div>
+            <div>
+              <dt>REFRESH</dt>
+              <dd>Manual</dd>
+            </div>
+          </dl>
+
+          <FeedList items={marketFeed} label="Market analysis" />
+          <FeedList items={predictionFeed} label="Predictions" />
+          <FeedList items={reportFeed} label="Reports" />
         </aside>
       </section>
 
-      <section className="sectionBlock" id="ops">
-        <div className="sectionLabel">
-          <span>01</span>
-          <p>Operating model</p>
+      <section className="funnelSection" id="contact">
+        <div className="funnelCopy">
+          <p className="panelKicker">MARKET BRIEF FUNNEL</p>
+          <h2>Custom Market Risk Briefs</h2>
+          <p>
+            Public samples are built in LACI first. Custom 24-hour briefs can
+            be generated from the same market/news signal pipeline for a
+            specific business, position, or decision window.
+          </p>
         </div>
-        <div className="valueGrid">
-          {valueProps.map((item) => (
-            <article className="valueCard" key={item.title}>
-              <div className="callSign">
-                {item.icon}
-                <span>{item.callsign}</span>
-              </div>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="sectionBlock demoBlock" id="demo">
-        <div className="sectionLabel">
-          <span>02</span>
-          <p>Live demo</p>
-        </div>
-        <div className="demoFrame" aria-label="Animated autonomy loops">
-          <div className="scanLine" />
-          <div className="loopColumns">
-            {loopColumns.map((column) => (
-              <div className="loopColumn" key={column.title}>
-                <h2>{column.title}</h2>
-                {column.nodes.map((node, index) => (
-                  <div
-                    className="loopNode"
-                    key={node}
-                    style={{ "--node-index": index } as CSSProperties}
-                  >
-                    [ {node} ]
-                  </div>
-                ))}
+        <div className="funnelCard">
+          <div className="funnelPrice">$99 starter brief</div>
+          <p>Focused market analysis, prediction, confidence, and action notes.</p>
+          <div className="offerTiers">
+            {offerTiers.map(([price, label]) => (
+              <div key={price}>
+                <strong>{price}</strong>
+                <span>{label}</span>
               </div>
             ))}
           </div>
-          <p className="demoCaption">Actual production traffic.</p>
+          <ul className="audienceList">
+            {audiences.map((audience) => (
+              <li key={audience}>{audience}</li>
+            ))}
+          </ul>
+          <p className="contactInstruction">
+            Send your market, exposure, region, and decision window.
+          </p>
+          <Link className="button primary" href="/contact">
+            Request Custom Brief
+          </Link>
         </div>
       </section>
 
       <section className="proofBlock" id="proof">
-        <div>
-          <p className="eyebrow">EXTRACTION LEDGER</p>
-          <h2>$2.3M+ bounties extracted</h2>
-        </div>
-        <div className="logoRail" aria-label="Bug bounty platform logos">
-          {proofLogos.map((logo) => (
-            <span key={logo}>{logo}</span>
-          ))}
-        </div>
+        <p className="eyebrow">PREDICTION LEDGER</p>
+        <h2>Dated reports. Auditable calls. Repeatable outbound.</h2>
+        <p>
+          The public site is the proof surface. LACI remains the research,
+          review, posting, and outreach command center.
+        </p>
       </section>
-
-      <section className="ctaBlock">
-        <p className="eyebrow">COMMANDER ACCESS</p>
-        <h2>Deploy Your Squad</h2>
-        <p>Results feed back. The loop gets smarter.</p>
-        <Link className="commandButton" href="/contact">
-          Deploy Your Squad
-        </Link>
-      </section>
-
-      <footer className="opsFooter">
-        <span>The Park Systems</span>
-        <Link href="/contact">Contact</Link>
-        <span className="statusPing">STATUS: LIVE</span>
-      </footer>
     </main>
   );
 }
