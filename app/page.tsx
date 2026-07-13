@@ -3,27 +3,59 @@ import Link from "next/link";
 const commodityCalls = [
   {
     commodity: "OIL",
-    action: "BUY",
-    className: "buy",
-    thesis: "LACI favors upside exposure while energy and shipping risk stay elevated.",
-    horizon: "7-30D",
-    confidence: "HIGH",
-  },
-  {
-    commodity: "NAT GAS",
     action: "HOLD",
     className: "hold",
-    thesis: "Wait for stronger confirmation before adding exposure.",
+    thesis: "LACI is holding current oil exposure while waiting for stronger confirmation.",
     horizon: "7-30D",
     confidence: "WATCH",
   },
   {
+    commodity: "NAT GAS",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
+  },
+  {
     commodity: "COPPER",
-    action: "SELL",
-    className: "sell",
-    thesis: "Avoid weak demand setups until trend improves.",
-    horizon: "7-30D",
-    confidence: "TACTICAL",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
+  },
+  {
+    commodity: "GOLD",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
+  },
+  {
+    commodity: "SILVER",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
+  },
+  {
+    commodity: "WHEAT",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
+  },
+  {
+    commodity: "CORN",
+    action: "NULL",
+    className: "null",
+    thesis: "No active LACI recommendation loaded.",
+    horizon: "--",
+    confidence: "--",
   },
 ];
 
@@ -92,7 +124,7 @@ export default function Home() {
               <p className="panelKicker">LACI COMMODITY CALL</p>
               <h2 id="analysis-title">Buy / Sell / Hold</h2>
             </div>
-            <span>OIL ACTIVE</span>
+            <span>OIL WATCH</span>
           </div>
 
           <div className={`primaryCall ${primaryCall.className}`}>

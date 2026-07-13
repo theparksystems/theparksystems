@@ -15,6 +15,8 @@
   --hold-soft: rgba(36, 168, 255, 0.14);
   --sell: #ff252b;
   --sell-soft: rgba(255, 37, 43, 0.12);
+  --null: #66707a;
+  --null-soft: rgba(102, 112, 122, 0.1);
   --mono: "IBM Plex Mono", "JetBrains Mono", Consolas, monospace;
   --sans: Arial, Helvetica, sans-serif;
 }
@@ -282,6 +284,13 @@ h1 {
     var(--panel-2);
 }
 
+.primaryCall.null {
+  color: var(--null);
+  background:
+    linear-gradient(135deg, var(--null-soft), transparent 58%),
+    var(--panel-2);
+}
+
 .callHeader {
   display: flex;
   align-items: baseline;
@@ -372,6 +381,11 @@ h1 {
 
 .sell {
   color: var(--sell);
+}
+
+.null {
+  color: var(--null);
+  opacity: 0.62;
 }
 
 .secondaryCalls {
