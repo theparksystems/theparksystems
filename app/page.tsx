@@ -1,21 +1,30 @@
 import Link from "next/link";
 
-const marketFeed = [
-  ["Sector focus", "Energy, shipping, supply-chain risk"],
-  ["Signal strength", "Updated from LACI market reports"],
-  ["Opportunity band", "Custom brief available"],
-];
-
-const predictionFeed = [
-  ["Likely move", "Latest prediction posts here"],
-  ["Risk trigger", "Needs report input"],
-  ["Next action", "Hold for LACI export"],
-];
-
-const reportFeed = [
-  ["Latest report", "Generated from LACI Market Analyst"],
-  ["Market brief", "Posted from reviewed LACI output"],
-  ["Prediction memo", "Archived with source notes"],
+const commodityCalls = [
+  {
+    commodity: "OIL",
+    action: "BUY",
+    className: "buy",
+    thesis: "LACI favors upside exposure while energy and shipping risk stay elevated.",
+    horizon: "7-30D",
+    confidence: "HIGH",
+  },
+  {
+    commodity: "NAT GAS",
+    action: "HOLD",
+    className: "hold",
+    thesis: "Wait for stronger confirmation before adding exposure.",
+    horizon: "7-30D",
+    confidence: "WATCH",
+  },
+  {
+    commodity: "COPPER",
+    action: "SELL",
+    className: "sell",
+    thesis: "Avoid weak demand setups until trend improves.",
+    horizon: "7-30D",
+    confidence: "TACTICAL",
+  },
 ];
 
 const offerTiers = [
@@ -30,26 +39,9 @@ const audiences = [
   "Teams deciding whether to buy, hedge, delay, or accelerate.",
 ];
 
-function FeedList({
-  items,
-  label,
-}: {
-  items: string[][];
-  label: string;
-}) {
-  return (
-    <ul className="analysisFeed" aria-label={label}>
-      {items.map(([key, value]) => (
-        <li key={key}>
-          <span>{key}</span>
-          <strong>{value}</strong>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export default function Home() {
+  const [primaryCall, ...secondaryCalls] = commodityCalls;
+
   return (
     <main className="pageShell" id="top">
       <header className="topbar">
@@ -97,32 +89,70 @@ export default function Home() {
         <aside className="analysisPanel" aria-labelledby="analysis-title">
           <div className="panelHead">
             <div>
-              <p className="panelKicker">LIVE ANALYSIS TAB</p>
-              <h2 id="analysis-title">Market Analysis</h2>
+              <p className="panelKicker">LACI COMMODITY CALL</p>
+              <h2 id="analysis-title">Buy / Sell / Hold</h2>
             </div>
-            <span>READY</span>
+            <span>OIL ACTIVE</span>
           </div>
 
-          <div className="tabList" aria-label="Analysis views">
-            <span>MARKET</span>
-            <span>PREDICT</span>
-            <span>REPORTS</span>
+          <div className={`primaryCall ${primaryCall.className}`}>
+            <div className="callHeader">
+              <span>{primaryCall.commodity}</span>
+              <strong>{primaryCall.action}</strong>
+            </div>
+            <p>{primaryCall.thesis}</p>
+            <dl>
+              <div>
+                <dt>HORIZON</dt>
+                <dd>{primaryCall.horizon}</dd>
+              </div>
+              <div>
+                <dt>CONFIDENCE</dt>
+                <dd>{primaryCall.confidence}</dd>
+              </div>
+              <div>
+                <dt>SOURCE</dt>
+                <dd>C:\laci</dd>
+              </div>
+            </dl>
           </div>
 
-          <dl className="metricGrid">
-            <div>
-              <dt>SOURCE</dt>
-              <dd>C:\laci reports</dd>
-            </div>
+          <div className="callLegend" aria-label="Call color legend">
+            <span className="buy">BUY</span>
+            <span className="hold">HOLD</span>
+            <span className="sell">SELL</span>
+          </div>
+
+          <div className="secondaryCalls" aria-label="Secondary commodity calls">
+            {secondaryCalls.map((call) => (
+              <article className={`callRow ${call.className}`} key={call.commodity}>
+                <div>
+                  <span>{call.commodity}</span>
+                  <p>{call.thesis}</p>
+                </div>
+                <strong>{call.action}</strong>
+              </article>
+            ))}
+          </div>
+
+          <div className="analysisSubheader">
+            <span>REPORT CONTEXT</span>
+            <p>
+              LACI report queue will replace these calls as commodities are
+              reviewed and posted.
+            </p>
+          </div>
+
+          <dl className="metricGrid compact">
             <div>
               <dt>REFRESH</dt>
               <dd>Manual</dd>
             </div>
+            <div>
+              <dt>MODE</dt>
+              <dd>Analyst reviewed</dd>
+            </div>
           </dl>
-
-          <FeedList items={marketFeed} label="Market analysis" />
-          <FeedList items={predictionFeed} label="Predictions" />
-          <FeedList items={reportFeed} label="Reports" />
         </aside>
       </section>
 
