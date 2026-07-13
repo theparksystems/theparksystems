@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Park Systems</title>
+    <meta
+      name="description"
+      content="The Park Systems static front page for deployed systems, market analysis, and prediction reports."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="The Park Systems home">
+        <span class="brand-mark">TPS</span>
+        <span class="brand-name">THE PARK SYSTEMS</span>
+      </a>
+      <nav class="nav-links" aria-label="Site sections">
+        <a href="#ops">OPS</a>
+        <a href="#contact">OFFER</a>
+        <a href="#proof">PROOF</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </header>
+
+    <main id="top" class="page-shell">
+      <section class="hero-card" aria-labelledby="hero-title">
+        <div class="window-dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="eyebrow">BOUNTY CELL OPERATIONS // LIVE COMMAND</p>
+        <h1 id="hero-title">
+          <span>YOU DON'T</span>
+          <span>MANAGE HACKERS.</span>
+          <span class="outline">YOU DEPLOY</span>
+          <span class="outline">SYSTEMS.</span>
+        </h1>
+        <p class="tagline">SCOUT. STRIKE. EXTRACT.</p>
+        <p class="summary">
+          Autonomous teams that hunt 24/7. Recon loops find surface area, quant
+          loops rank targets, ops loops retune the cell.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact">DEPLOY YOUR SQUAD</a>
+          <a class="button secondary" href="#ops">WATCH THE LOOP</a>
+        </div>
+
+        <section class="tip-jar hero-tip-jar" aria-labelledby="tip-jar-title">
+          <div class="tip-jar-head">
+            <div>
+              <p class="panel-kicker">SOLANA TIP JAR</p>
+              <h3 id="tip-jar-title">Support the cell</h3>
+            </div>
+            <span class="wallet-network">USDC</span>
+          </div>
+          <p class="tip-jar-copy">
+            Small support, direct to the receive wallet. No account, checkout, or API layer.
+          </p>
+          <div class="tip-actions" aria-label="Preset Solana Pay tips">
+            <a
+              class="tip-button"
+              href="solana:FztX9R6gWATozCiECJHxSE59yU7D21tJK2pi84eN4v3k?amount=5&spl-token=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&label=The%20Park%20Systems&message=Tip%20jar%20support&memo=theparksystems-tip-jar"
+            >$5</a>
+            <a
+              class="tip-button"
+              href="solana:FztX9R6gWATozCiECJHxSE59yU7D21tJK2pi84eN4v3k?amount=15&spl-token=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&label=The%20Park%20Systems&message=Tip%20jar%20support&memo=theparksystems-tip-jar"
+            >$15</a>
+            <a
+              class="tip-button"
+              href="solana:FztX9R6gWATozCiECJHxSE59yU7D21tJK2pi84eN4v3k?amount=25&spl-token=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&label=The%20Park%20Systems&message=Tip%20jar%20support&memo=theparksystems-tip-jar"
+            >$25</a>
+          </div>
+          <div class="wallet-row">
+            <code id="tip-wallet">FztX9R...eN4v3k</code>
+            <button
+              class="copy-wallet"
+              type="button"
+              data-wallet="FztX9R6gWATozCiECJHxSE59yU7D21tJK2pi84eN4v3k"
+              aria-describedby="copy-status"
+            >
+              COPY
+            </button>
+          </div>
+          <p class="copy-status" id="copy-status" aria-live="polite">Mainnet receive wallet</p>
+        </section>
+      </section>
+
+      <aside class="analysis-panel" aria-labelledby="analysis-title">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">LIVE ANALYSIS TAB</p>
+            <h2 id="analysis-title">Market Analysis</h2>
+          </div>
+          <span class="panel-state" id="analysis-state">READY</span>
+        </div>
+
+        <div class="tab-list" role="tablist" aria-label="Analysis views">
+          <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="tab-market" id="tab-market-button">
+            MARKET
+          </button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-predictions" id="tab-predictions-button">
+            PREDICT
+          </button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-reports" id="tab-reports-button">
+            REPORTS
+          </button>
+        </div>
+
+        <section class="tab-panel active" id="tab-market" role="tabpanel" aria-labelledby="tab-market-button">
+          <dl class="metric-grid">
+            <div>
+              <dt>SOURCE</dt>
+              <dd>C:\laci reports</dd>
+            </div>
+            <div>
+              <dt>REFRESH</dt>
+              <dd>Manual</dd>
+            </div>
+          </dl>
+          <ul class="analysis-feed recommendation-feed" id="market-feed" aria-label="Market analysis">
+            <li class="recommendation-row">
+              <span class="feed-label">OIL</span>
+              <strong>No active LACI recommendation loaded.</strong>
+              <span class="recommendation-state neutral">NULL</span>
+            </li>
+            <li class="recommendation-row active-buy">
+              <span class="feed-label">SILVER</span>
+              <strong>Buy signal active. Watch pullback entries and liquidity.</strong>
+              <span class="recommendation-state buy">BUY</span>
+            </li>
+            <li class="recommendation-row">
+              <span class="feed-label">WHEAT</span>
+              <strong>No active LACI recommendation loaded.</strong>
+              <span class="recommendation-state neutral">NULL</span>
+            </li>
+            <li class="recommendation-row">
+              <span class="feed-label">CORN</span>
+              <strong>No active LACI recommendation loaded.</strong>
+              <span class="recommendation-state neutral">NULL</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="tab-panel" id="tab-predictions" role="tabpanel" aria-labelledby="tab-predictions-button" hidden>
+          <dl class="metric-grid">
+            <div>
+              <dt>WINDOW</dt>
+              <dd>7-30 days</dd>
+            </div>
+            <div>
+              <dt>CONFIDENCE</dt>
+              <dd>Manual entry</dd>
+            </div>
+          </dl>
+          <ul class="analysis-feed" id="prediction-feed" aria-label="Predictions">
+            <li>
+              <span class="feed-label">Likely move</span>
+              <strong>Latest prediction posts here</strong>
+            </li>
+            <li>
+              <span class="feed-label">Risk trigger</span>
+              <strong>Needs report input</strong>
+            </li>
+            <li>
+              <span class="feed-label">Next action</span>
+              <strong>Hold for LACI export</strong>
+            </li>
+          </ul>
+        </section>
+
+        <section class="tab-panel" id="tab-reports" role="tabpanel" aria-labelledby="tab-reports-button" hidden>
+          <dl class="metric-grid">
+            <div>
+              <dt>IMPORT MODE</dt>
+              <dd>Copy/paste</dd>
+            </div>
+            <div>
+              <dt>STATUS</dt>
+              <dd>LACI export</dd>
+            </div>
+          </dl>
+          <ul class="analysis-feed" id="report-feed" aria-label="Reports">
+            <li>
+              <span class="feed-label">Latest report</span>
+              <strong>Generated from LACI Market Analyst</strong>
+            </li>
+            <li>
+              <span class="feed-label">Market brief</span>
+              <strong>Placeholder block</strong>
+            </li>
+            <li>
+              <span class="feed-label">Prediction memo</span>
+              <strong>Placeholder block</strong>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <section class="funnel-section" id="contact" aria-labelledby="funnel-title">
+      <div class="funnel-copy">
+        <p class="panel-kicker">MARKET BRIEF FUNNEL</p>
+        <h2 id="funnel-title">Custom Market Risk Briefs</h2>
+        <p id="funnel-summary">
+          Public samples are posted here first. Custom 24-hour briefs can be built from the same LACI signal pipeline for a specific business, position, or decision window.
+        </p>
+      </div>
+      <div class="funnel-card">
+        <div class="funnel-price" id="funnel-price">$99 starter brief</div>
+        <p id="funnel-offer">Focused market analysis, prediction, confidence, and action notes.</p>
+        <div class="offer-tiers" id="offer-tiers">
+          <div>
+            <strong>$49</strong>
+            <span>quick signal read</span>
+          </div>
+          <div>
+            <strong>$99</strong>
+            <span>custom 24-hour brief</span>
+          </div>
+          <div>
+            <strong>$250</strong>
+            <span>decision memo</span>
+          </div>
+        </div>
+        <ul class="funnel-audience" id="funnel-audience">
+          <li>Energy, logistics, shipping, and supply-chain operators.</li>
+          <li>Small funds, traders, founders, and operators with exposure.</li>
+          <li>Teams deciding whether to buy, hedge, delay, or accelerate.</li>
+        </ul>
+        <p class="contact-instruction" id="contact-instruction">
+          Send your market, exposure, region, and decision window.
+        </p>
+        <a class="button primary" id="funnel-cta" href="#contact">REQUEST CUSTOM BRIEF</a>
+      </div>
+    </section>
+
+    <script src="data/market-reports.js"></script>
+    <script src="data/funnel.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

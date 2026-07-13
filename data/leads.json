@@ -1,0 +1,12 @@
+{
+  "leads": [],
+  "intake_fields": [
+    "name",
+    "contact",
+    "market",
+    "exposure",
+    "region",
+    "decision_window",
+    "budget_tier"
+  ]
+}
