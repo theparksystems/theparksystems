@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "The Park Systems Analyst Picks",
     short_name: "ARIA Picks",
     description:
-      "ARIA analyst slate with browser-local PARKS conversation memory.",
+      "ARIA analyst slate with deployment-local PARKS SQLite memory.",
     start_url: "/",
     scope: "/",
     display: "standalone",

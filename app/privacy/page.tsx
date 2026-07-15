@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Privacy | The Park Systems",
-  description: "Privacy details for ARIA analyst picks and PARKS local memory.",
+  description: "Privacy details for ARIA analyst picks and PARKS SQLite memory.",
 };
 
 export default function PrivacyPage() {
@@ -18,10 +18,10 @@ export default function PrivacyPage() {
         <p className="eyebrow">Privacy</p>
         <h1>Privacy Notice</h1>
         <p>
-          ARIA uses PARKS browser-local memory for chat retrieval. Conversation
-          text is stored on your device in browser storage and IndexedDB for the
-          current local session. It is not sent to a Park Systems chat server by
-          this retrieval layer.
+          ARIA uses PARKS deployment-local SQLite memory for chat retrieval.
+          Conversation text and derived correlation records may be stored in the
+          local SQLite database for this deployment. Supabase is not used by this
+          memory layer.
         </p>
         <p>
           The site uses Google Analytics to measure page usage. Google Analytics
@@ -31,7 +31,8 @@ export default function PrivacyPage() {
         </p>
         <p>
           You can clear ARIA conversation memory with the in-app Clear Session
-          control or by clearing this site&apos;s browser data.
+          control. Your browser may also keep local display history for the chat
+          interface until this site&apos;s browser data is cleared.
         </p>
         <p>
           Do not enter sensitive personal, financial, medical, legal, account,

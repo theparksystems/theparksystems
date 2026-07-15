@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 type PickTone = "hold" | "buy" | "sell";
 
@@ -16,7 +16,7 @@ type AnalystPick = {
 
 type Retrieval = {
   id: string;
-  type: "base" | "memory";
+  type: "article" | "message" | "correlation";
   text: string;
   score: number;
   entities: string[];
@@ -27,7 +27,24 @@ type ChatMessage = {
   id: string;
   role: "user" | "parks";
   text: string;
+  answer?: string;
   retrievals?: Retrieval[];
+  correlations?: Retrieval[];
+  responsePrompt?: string;
+};
+
+type MemoryResponse = {
+  ok: boolean;
+  answer?: string;
+  message?: string;
+  retrievals?: Retrieval[];
+  correlations?: Retrieval[];
+  responsePrompt?: string;
+  stats?: {
+    database: string;
+    correlations: number;
+    phrases: number;
+  };
 };
 
 const analystPicks: AnalystPick[] = [
@@ -76,7 +93,7 @@ const defaultMessages: ChatMessage[] = [
   {
     id: "intro",
     role: "parks",
-    text: "Ask why a rating is active. ARIA retrieves matching slate evidence and your local PARKS conversation memory.",
+    text: "Ask why a rating is active. ARIA retrieves matching slate evidence and local SQLite PARKS conversation memory.",
   },
 ];
 
@@ -121,10 +138,9 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState(analystPicks[0].id);
   const [sessionId, setSessionId] = useState("");
   const [query, setQuery] = useState("");
-  const [status, setStatus] = useState("Starting local memory");
+  const [status, setStatus] = useState("SQLite memory ready");
   const [isThinking, setIsThinking] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(defaultMessages);
-  const workerRef = useRef<Worker | null>(null);
 
   const selectedPick =
     analystPicks.find((pick) => pick.id === selectedId) ?? analystPicks[0];
@@ -144,72 +160,7 @@ export default function Home() {
       setStatus("Local memory unavailable");
     }
 
-    const worker = new Worker("/parks-memory-worker.js");
-    workerRef.current = worker;
-
-    worker.onerror = () => {
-      setIsThinking(false);
-      setStatus("Local memory unavailable");
-      setMessages((current) => [
-        ...current,
-        {
-          id: createId("parks"),
-          role: "parks",
-          text: "ARIA could not start local memory in this browser. You can still read the analyst slate and breakdowns.",
-        },
-      ]);
-    };
-
-    worker.onmessage = (event: MessageEvent) => {
-      const message = event.data;
-
-      if (message.type === "ready") {
-        setStatus("Local memory ready");
-      }
-
-      if (message.type === "answer") {
-        setIsThinking(false);
-        setMessages((current) => [
-          ...current,
-          {
-            id: createId("parks"),
-            role: "parks",
-            text: "ARIA found the strongest local context for this question.",
-            retrievals: message.retrievals,
-          },
-        ]);
-      }
-
-      if (message.type === "cleared") {
-        setMessages([
-          {
-            id: "intro",
-            role: "parks",
-            text: "Conversation cleared. Ask ARIA to rebuild memory from here.",
-          },
-        ]);
-      }
-
-      if (message.type === "error") {
-        setIsThinking(false);
-        setStatus("Local memory limited");
-        setMessages((current) => [
-          ...current,
-          {
-            id: createId("parks"),
-            role: "parks",
-            text: message.message || "ARIA could not access local memory in this browser.",
-          },
-        ]);
-      }
-    };
-
-    worker.postMessage({ type: "init", sessionId: nextSessionId });
-
-    return () => {
-      worker.terminate();
-      workerRef.current = null;
-    };
+    setStatus("SQLite memory ready");
   }, []);
 
   useEffect(() => {
@@ -227,11 +178,31 @@ export default function Home() {
     }
   }, [messages, sessionId]);
 
-  function askParks(event: FormEvent<HTMLFormElement>) {
+  async function callMemory(payload: {
+    type: "ask" | "clear" | "stats";
+    text?: string;
+  }) {
+    const response = await fetch("/api/aria-memory", {
+      body: JSON.stringify({ ...payload, sessionId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    const data = (await response.json()) as MemoryResponse;
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.message || "ARIA SQLite memory is unavailable.");
+    }
+
+    return data;
+  }
+
+  async function askParks(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const text = query.trim();
-    if (!text || !workerRef.current || isThinking) {
+    if (!text || !sessionId || isThinking) {
       return;
     }
 
@@ -245,17 +216,64 @@ export default function Home() {
         text,
       },
     ]);
-    workerRef.current.postMessage({ type: "ask", sessionId, text });
     setQuery("");
+
+    try {
+      const result = await callMemory({ type: "ask", text });
+      setMessages((current) => [
+        ...current,
+        {
+          id: createId("parks"),
+          role: "parks",
+          text:
+            result.answer ||
+            "ARIA does not have enough matching context to answer that cleanly yet.",
+          answer: result.answer,
+          retrievals: result.retrievals || [],
+          correlations: result.correlations || [],
+          responsePrompt: result.responsePrompt,
+        },
+      ]);
+      setStatus("SQLite memory ready");
+    } catch (error) {
+      setStatus("SQLite memory limited");
+      setMessages((current) => [
+        ...current,
+        {
+          id: createId("parks"),
+          role: "parks",
+          text:
+            error instanceof Error
+              ? error.message
+              : "ARIA could not access SQLite memory.",
+        },
+      ]);
+    } finally {
+      setIsThinking(false);
+    }
   }
 
-  function clearSession() {
+  async function clearSession() {
     try {
       window.localStorage.removeItem(`${chatKeyPrefix}${sessionId}`);
     } catch {
-      setStatus("Local memory limited");
+      setStatus("SQLite memory limited");
     }
-    workerRef.current?.postMessage({ type: "clear", sessionId });
+
+    try {
+      await callMemory({ type: "clear" });
+      setStatus("SQLite memory ready");
+    } catch {
+      setStatus("SQLite memory limited");
+    }
+
+    setMessages([
+      {
+        id: "intro",
+        role: "parks",
+        text: "Conversation cleared. Ask ARIA to rebuild SQLite memory from here.",
+      },
+    ]);
   }
 
   return (
@@ -277,8 +295,9 @@ export default function Home() {
               <div className="memoryCopy">
                 <h2 id="memory-title">PARKS</h2>
                 <p>
-                  Conversational memory stays in your browser. No API is used
-                  for chat retrieval. Site analytics may collect page usage.
+                  Conversational memory writes to deployment-local SQLite. No
+                  Supabase is used for chat retrieval. Site analytics may
+                  collect page usage.
                 </p>
                 <span>{status}</span>
               </div>
@@ -351,8 +370,8 @@ export default function Home() {
                 commodities, real estate, or any financial product.
               </p>
               <p>
-                ARIA chat retrieval stores conversation memory in this browser.
-                Google Analytics is used for site usage measurement.
+                ARIA chat retrieval stores local SQLite correlations for this
+                deployment. Google Analytics is used for site usage measurement.
               </p>
             </section>
 
@@ -379,7 +398,7 @@ export default function Home() {
 
             <section className="chatPanel oneChatPanel" aria-live="polite">
               <div className="chatHead">
-                <span>1v1 Local Chat</span>
+                <span>1v1 SQLite Chat</span>
                 <button onClick={clearSession} type="button">
                   Clear Session
                 </button>
@@ -390,6 +409,7 @@ export default function Home() {
                     <p>{message.text}</p>
                     {message.retrievals ? (
                       <div className="retrievalList">
+                        <span className="retrievalLabel">Top References</span>
                         {message.retrievals.map((retrieval) => (
                           <div className="retrievalCard" key={retrieval.id}>
                             <div>
@@ -402,11 +422,32 @@ export default function Home() {
                         ))}
                       </div>
                     ) : null}
+                    {message.correlations?.length ? (
+                      <div className="retrievalList">
+                        <span className="retrievalLabel">Correlated Memory</span>
+                        {message.correlations.map((retrieval) => (
+                          <div className="retrievalCard correlation" key={retrieval.id}>
+                            <div>
+                              <span>{retrieval.type}</span>
+                              <strong>{Math.round(retrieval.score * 100)}%</strong>
+                            </div>
+                            <p>{retrieval.text}</p>
+                            <small>{retrieval.reason}</small>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                    {message.responsePrompt ? (
+                      <details className="responsePromptBox">
+                        <summary>Response prompt</summary>
+                        <pre className="responsePrompt">{message.responsePrompt}</pre>
+                      </details>
+                    ) : null}
                   </article>
                 ))}
                 {isThinking ? (
                   <article className="chatMessage parks">
-                    <p>ARIA is searching local PARKS memory...</p>
+                    <p>ARIA is searching local SQLite PARKS memory...</p>
                   </article>
                 ) : null}
               </div>

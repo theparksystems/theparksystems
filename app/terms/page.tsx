@@ -33,9 +33,9 @@ export default function TermsPage() {
           before acting on financial, legal, tax, or investment matters.
         </p>
         <p>
-          ARIA is a browser-local retrieval interface. It retrieves local slate
-          context and local conversation memory; it does not generate guaranteed,
-          complete, or current market advice.
+          ARIA is a retrieval interface backed by local slate context and
+          deployment-local SQLite conversation memory. It does not generate
+          guaranteed, complete, or current market advice.
         </p>
       </section>
     </main>

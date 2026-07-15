@@ -28,7 +28,7 @@ export default function ContactPage() {
           <p className="kicker">CONTACT</p>
           <h1>Contact The Park Systems</h1>
           <p className="lede">
-            ARIA analyst picks, PARKS browser-local memory, and public site
+            ARIA analyst picks, PARKS SQLite memory, and public site
             inquiries.
           </p>
         </div>

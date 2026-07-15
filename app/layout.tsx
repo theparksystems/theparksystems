@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "The Park Systems | ARIA Analyst Picks",
     description:
-      "ARIA analyst slate with browser-local PARKS conversation memory.",
+      "ARIA analyst slate with deployment-local PARKS SQLite memory.",
     url: "https://theparksystems-production.up.railway.app",
     siteName: "The Park Systems",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Park Systems | ARIA Analyst Picks",
     description:
-      "ARIA analyst slate with browser-local PARKS conversation memory.",
+      "ARIA analyst slate with deployment-local PARKS SQLite memory.",
     images: ["/opengraph-image"],
   },
   icons: {
