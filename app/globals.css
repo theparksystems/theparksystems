@@ -441,10 +441,12 @@ h1 {
 }
 
 .oneChatView {
-  min-height: calc(100dvh - 4.3rem);
+  height: calc(100dvh - 4.3rem);
+  min-height: 38rem;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 3vw, 1.35rem);
+  gap: 0.85rem;
+  overflow: hidden;
 }
 
 .chatNav {
@@ -487,20 +489,27 @@ h1 {
 
 .oneChatPanel {
   flex: 1;
-  min-height: 24rem;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .chatLog {
+  min-height: 0;
   max-height: 34rem;
   overflow: auto;
   display: grid;
   gap: 1rem;
   padding-right: 0.2rem;
+  overscroll-behavior: contain;
 }
 
 .oneChatLog {
+  flex: 1;
   max-height: none;
   align-content: start;
+  padding: 0.75rem 0.2rem 0.75rem 0;
 }
 
 .chatMessage {
@@ -532,6 +541,7 @@ h1 {
 }
 
 .chatComposer {
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
@@ -539,6 +549,25 @@ h1 {
   padding: 0.75rem;
   border: 1px solid var(--line-strong);
   background: rgba(17, 18, 24, 0.92);
+}
+
+@media (max-width: 620px) {
+  .oneChatView {
+    height: calc(100dvh - 2rem);
+    min-height: 34rem;
+  }
+
+  .chatNav {
+    min-height: 4.2rem;
+  }
+
+  .chatComposer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chatComposer button {
+    width: 100%;
+  }
 }
 
 .chatComposer textarea {

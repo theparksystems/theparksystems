@@ -407,7 +407,7 @@ export default function Home() {
                 {messages.map((message) => (
                   <article className={`chatMessage ${message.role}`} key={message.id}>
                     <p>{message.text}</p>
-                    {message.retrievals ? (
+                    {message.retrievals?.length ? (
                       <div className="retrievalList">
                         <span className="retrievalLabel">Top References</span>
                         {message.retrievals.map((retrieval) => (
