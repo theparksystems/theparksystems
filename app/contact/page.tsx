@@ -4,7 +4,7 @@ const contactEmail = "theparksystems22@gmail.com";
 
 export const metadata = {
   title: "Contact | The Park Systems",
-  description: "Contact The Park Systems.",
+  description: "Contact The Park Systems about ARIA analyst picks.",
 };
 
 export default function ContactPage() {
@@ -16,7 +16,9 @@ export default function ContactPage() {
           <strong>The Park Systems</strong>
         </Link>
         <div className="siteNav">
-          <Link href="/">Landing</Link>
+          <Link href="/">Slate</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
           <Link href="/contact">Contact</Link>
         </div>
       </nav>
@@ -25,7 +27,10 @@ export default function ContactPage() {
         <div>
           <p className="kicker">CONTACT</p>
           <h1>Contact The Park Systems</h1>
-          <p className="lede">Bounty Cell Operations.</p>
+          <p className="lede">
+            ARIA analyst picks, PARKS browser-local memory, and public site
+            inquiries.
+          </p>
         </div>
 
         <aside className="statusPanel contactPanel" aria-label="Contact details">

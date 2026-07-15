@@ -56,9 +56,14 @@ body {
 }
 
 button,
-textarea {
+textarea,
+a {
   color: inherit;
   font: inherit;
+}
+
+a {
+  text-decoration: none;
 }
 
 button {
@@ -435,12 +440,67 @@ h1 {
   text-transform: uppercase;
 }
 
+.oneChatView {
+  min-height: calc(100dvh - 4.3rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.35rem);
+}
+
+.chatNav {
+  min-height: 4.8rem;
+  padding: 0.8rem 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--line-strong);
+  background: rgba(19, 20, 28, 0.72);
+}
+
+.chatNav button {
+  min-height: 2.55rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(215, 220, 240, 0.5);
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.chatNav .eyebrow {
+  margin-bottom: 0.3rem;
+  font-size: 0.72rem;
+}
+
+.chatNav h1 {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: clamp(1rem, 4vw, 1.45rem);
+  line-height: 1.12;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.oneChatPanel {
+  flex: 1;
+  min-height: 24rem;
+}
+
 .chatLog {
   max-height: 34rem;
   overflow: auto;
   display: grid;
   gap: 1rem;
   padding-right: 0.2rem;
+}
+
+.oneChatLog {
+  max-height: none;
+  align-content: start;
 }
 
 .chatMessage {
@@ -461,6 +521,57 @@ h1 {
   padding: 0.8rem 0.9rem;
   border: 1px solid rgba(154, 160, 255, 0.4);
   background: rgba(154, 160, 255, 0.08);
+}
+
+.chatMessage.parks > p {
+  justify-self: start;
+  max-width: 92%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(215, 220, 240, 0.18);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.chatComposer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line-strong);
+  background: rgba(17, 18, 24, 0.92);
+}
+
+.chatComposer textarea {
+  width: 100%;
+  min-height: 3.6rem;
+  max-height: 9rem;
+  padding: 0.85rem;
+  resize: vertical;
+  border: 1px solid rgba(215, 220, 240, 0.45);
+  border-radius: 0.35rem;
+  background: #171821;
+  color: var(--text);
+  outline: none;
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.chatComposer textarea:focus {
+  border-color: var(--memory);
+  box-shadow: 0 0 0 2px rgba(154, 160, 255, 0.16);
+}
+
+.chatComposer button {
+  min-height: 3.6rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(215, 220, 240, 0.55);
+  border-radius: 0.35rem;
+  background: rgba(154, 160, 255, 0.1);
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .retrievalList {
@@ -579,6 +690,136 @@ h1 {
   text-transform: uppercase;
 }
 
+.appFooter nav,
+.legalNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.appFooter a,
+.legalNav a,
+.siteNav a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 0.12rem;
+  text-underline-offset: 0.28rem;
+}
+
+.disclosurePanel {
+  padding: clamp(0.9rem, 3vw, 1.2rem);
+  display: grid;
+  gap: 0.65rem;
+  border: 1px solid rgba(255, 90, 97, 0.42);
+  background:
+    linear-gradient(110deg, rgba(255, 90, 97, 0.09), transparent 60%),
+    var(--panel-deep);
+}
+
+.disclosurePanel p {
+  margin-bottom: 0;
+  color: #d9dce6;
+  font-size: clamp(0.72rem, 2.7vw, 0.88rem);
+  line-height: 1.55;
+}
+
+.legalPage,
+.contactPage {
+  min-height: 100dvh;
+  padding: max(1.2rem, env(safe-area-inset-top)) 1.2rem max(1.2rem, env(safe-area-inset-bottom));
+}
+
+.legalNav,
+.siteHeader {
+  width: min(100%, 68rem);
+  min-height: 4.4rem;
+  margin: 0 auto 1rem;
+  padding: 0 1.2rem;
+  justify-content: space-between;
+  border: 1px solid var(--line-strong);
+  background: rgba(19, 20, 28, 0.72);
+  color: var(--text);
+  font-size: clamp(0.78rem, 2.5vw, 0.95rem);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.siteHeader,
+.brandMark,
+.siteNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brandMark span {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--memory);
+  color: var(--memory);
+}
+
+.legalShell,
+.contactShell {
+  width: min(100%, 68rem);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.035), transparent 54%),
+    var(--panel-deep);
+}
+
+.legalShell h1,
+.contactShell h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 9vw, 4.5rem);
+}
+
+.legalShell p,
+.contactShell p {
+  max-width: 54rem;
+  margin-bottom: 0;
+  color: #e4e8ec;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  line-height: 1.7;
+}
+
+.contactPanel,
+.statusPanel {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.button,
+.contactButton {
+  min-height: 3rem;
+  padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--memory);
+  color: var(--text);
+  font-weight: 900;
+}
+
 @media (max-width: 760px) {
   .appShell {
     padding: 0;
@@ -636,5 +877,33 @@ h1 {
   .appFooter {
     padding: 0 1rem;
     font-size: 0.72rem;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .chatNav {
+    grid-template-columns: 1fr;
+  }
+
+  .chatNav button {
+    justify-self: start;
+  }
+
+  .chatComposer {
+    grid-template-columns: 1fr;
+  }
+
+  .chatComposer button {
+    width: 100%;
+  }
+
+  .legalNav,
+  .siteHeader,
+  .siteNav {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
   }
 }

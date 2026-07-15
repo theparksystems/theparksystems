@@ -9,9 +9,9 @@ export const contentType = "image/png";
 
 export default function Image() {
   const picks = [
-    ["Crude Oil", "Hold", "#8A5B12", "#F8E8BC"],
-    ["Silver", "Buy", "#0D7A4F", "#DFF6E8"],
-    ["Real Estate", "Sell", "#B4232D", "#FFE1DF"],
+    ["Crude Oil", "Hold", "#5D76FF"],
+    ["Silver", "Buy", "#58C977"],
+    ["Real Estate", "Sell", "#FF5A61"],
   ];
 
   return new ImageResponse(
@@ -23,30 +23,33 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           gap: 30,
-          background: "#07110F",
-          color: "#15211E",
+          background: "#101116",
+          color: "#F8F8FB",
           padding: 58,
-          fontFamily: "Arial",
+          fontFamily: "monospace",
         }}
       >
-        <div style={{ color: "#F7F1E6", fontSize: 34, fontWeight: 800 }}>
-          THE PARK SYSTEMS
+        <div style={{ color: "#FF5A61", fontSize: 34, fontWeight: 900 }}>
+          PARKS MODEL // LACI
         </div>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            background: "#F7F1E6",
-            borderRadius: 38,
-            padding: 44,
+            background: "#171820",
+            border: "2px solid rgba(215,220,240,0.42)",
+            padding: 40,
             gap: 26,
           }}
         >
-          <div style={{ fontSize: 86, fontWeight: 900, lineHeight: 0.95 }}>
-            Analyst Picks
+          <div style={{ fontSize: 78, fontWeight: 900, lineHeight: 0.95 }}>
+            ARIA Analyst Picks
+          </div>
+          <div style={{ color: "#DDE1EC", fontSize: 28, fontWeight: 700 }}>
+            Browser-local PARKS conversation memory
           </div>
           <div style={{ display: "flex", gap: 18 }}>
-            {picks.map(([market, call, color, bg]) => (
+            {picks.map(([market, call, color]) => (
               <div
                 key={market}
                 style={{
@@ -54,21 +57,19 @@ export default function Image() {
                   display: "flex",
                   flexDirection: "column",
                   gap: 18,
-                  background: "#FFFAF0",
-                  border: "2px solid rgba(21, 33, 30, 0.14)",
-                  borderRadius: 22,
+                  background: "#1B1C25",
+                  border: `2px solid ${color}`,
                   padding: 24,
                 }}
               >
-                <div style={{ fontSize: 34, fontWeight: 900 }}>{market}</div>
+                <div style={{ color, fontSize: 34, fontWeight: 900 }}>
+                  {market}
+                </div>
                 <div
                   style={{
                     alignSelf: "flex-start",
-                    background: bg,
                     color,
-                    borderRadius: 16,
-                    padding: "14px 22px",
-                    fontSize: 30,
+                    fontSize: 48,
                     fontWeight: 900,
                     textTransform: "uppercase",
                   }}

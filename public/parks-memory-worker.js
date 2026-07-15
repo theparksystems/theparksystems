@@ -72,22 +72,32 @@ const baseInsights = [
 self.onmessage = async (event) => {
   const message = event.data;
 
-  if (message.type === "init") {
-    db = await openDatabase();
-    self.postMessage({ type: "ready" });
-  }
+  try {
+    if (message.type === "init") {
+      db = await openDatabase();
+      self.postMessage({ type: "ready" });
+    }
 
-  if (message.type === "ask") {
-    db = db || (await openDatabase());
-    const answer = await retrieve(message.sessionId, message.text);
-    await storeMemory(message.sessionId, message.text);
-    self.postMessage({ type: "answer", retrievals: answer });
-  }
+    if (message.type === "ask") {
+      db = db || (await openDatabase());
+      const answer = await retrieve(message.sessionId, message.text);
+      await storeMemory(message.sessionId, message.text);
+      self.postMessage({ type: "answer", retrievals: answer });
+    }
 
-  if (message.type === "clear") {
-    db = db || (await openDatabase());
-    await clearMemory(message.sessionId);
-    self.postMessage({ type: "cleared" });
+    if (message.type === "clear") {
+      db = db || (await openDatabase());
+      await clearMemory(message.sessionId);
+      self.postMessage({ type: "cleared" });
+    }
+  } catch (error) {
+    self.postMessage({
+      type: "error",
+      message:
+        error instanceof Error
+          ? error.message
+          : "Local memory is unavailable in this browser.",
+    });
   }
 };
 

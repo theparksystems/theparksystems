@@ -3,8 +3,9 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "The Park Systems Analyst Picks",
-    short_name: "TPS Picks",
-    description: "Mobile analyst picks for crude oil, silver, and real estate.",
+    short_name: "ARIA Picks",
+    description:
+      "ARIA analyst slate with browser-local PARKS conversation memory.",
     start_url: "/",
     scope: "/",
     display: "standalone",
@@ -16,6 +17,18 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/favicon.svg",
         sizes: "any",
         type: "image/svg+xml",
+        purpose: "maskable",
+      },
+      {
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
         purpose: "maskable",
       },
     ],
