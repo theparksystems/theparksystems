@@ -508,8 +508,40 @@ h1 {
   overflow: auto;
   display: grid;
   gap: 1rem;
-  padding-right: 0.2rem;
-  overscroll-behavior: contain;
+  padding-right: 0.45rem;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  scrollbar-color: rgba(154, 160, 255, 0.48) rgba(255, 255, 255, 0.045);
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+.chatLog::-webkit-scrollbar {
+  width: 0.55rem;
+}
+
+.chatLog::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.035);
+  border-left: 1px solid rgba(215, 220, 240, 0.08);
+}
+
+.chatLog::-webkit-scrollbar-thumb {
+  min-height: 3rem;
+  border: 0.12rem solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(rgba(154, 160, 255, 0.72), rgba(72, 219, 202, 0.56))
+    content-box;
+}
+
+.chatLog::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(rgba(154, 160, 255, 0.95), rgba(72, 219, 202, 0.78))
+    content-box;
+}
+
+.chatLog::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .oneChatLog {
@@ -517,6 +549,11 @@ h1 {
   max-height: none;
   align-content: start;
   padding: 0.75rem 0.2rem 0.75rem 0;
+}
+
+.chatEnd {
+  width: 100%;
+  height: 1px;
 }
 
 .chatMessage {

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 type PickTone = "hold" | "buy" | "sell";
 
@@ -89,6 +89,7 @@ const analystPicks: AnalystPick[] = [
 
 const sessionKey = "parks-memory-session-id";
 const chatKeyPrefix = "parks-chat-history:";
+const autoScrollThreshold = 96;
 const defaultMessages: ChatMessage[] = [
   {
     id: "intro",
@@ -141,6 +142,9 @@ export default function Home() {
   const [status, setStatus] = useState("SQLite memory ready");
   const [isThinking, setIsThinking] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(defaultMessages);
+  const chatLogRef = useRef<HTMLDivElement | null>(null);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const shouldStickToBottomRef = useRef(true);
 
   const selectedPick =
     analystPicks.find((pick) => pick.id === selectedId) ?? analystPicks[0];
@@ -178,6 +182,31 @@ export default function Home() {
     }
   }, [messages, sessionId]);
 
+  useEffect(() => {
+    if (view !== "chat" || !shouldStickToBottomRef.current) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 80);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [isThinking, messages, view]);
+
+  function updateAutoScrollLock() {
+    const log = chatLogRef.current;
+    if (!log) {
+      return;
+    }
+
+    const distanceFromBottom = log.scrollHeight - log.scrollTop - log.clientHeight;
+    shouldStickToBottomRef.current = distanceFromBottom < autoScrollThreshold;
+  }
+
   async function callMemory(payload: {
     type: "ask" | "clear" | "stats";
     text?: string;
@@ -207,6 +236,7 @@ export default function Home() {
     }
 
     setView("chat");
+    shouldStickToBottomRef.current = true;
     setIsThinking(true);
     setMessages((current) => [
       ...current,
@@ -267,6 +297,7 @@ export default function Home() {
       setStatus("SQLite memory limited");
     }
 
+    shouldStickToBottomRef.current = true;
     setMessages([
       {
         id: "intro",
@@ -406,7 +437,11 @@ export default function Home() {
                   Clear Session
                 </button>
               </div>
-              <div className="chatLog oneChatLog">
+              <div
+                className="chatLog oneChatLog"
+                onScroll={updateAutoScrollLock}
+                ref={chatLogRef}
+              >
                 {messages.map((message) => (
                   <article className={`chatMessage ${message.role}`} key={message.id}>
                     <p>{message.text}</p>
@@ -453,6 +488,7 @@ export default function Home() {
                     <p>ARIA is searching local SQLite PARKS memory...</p>
                   </article>
                 ) : null}
+                <div className="chatEnd" ref={chatEndRef} />
               </div>
             </section>
 
