@@ -278,7 +278,10 @@ export default function Home() {
 
   return (
     <main className="appShell">
-      <section className="phoneScreen" aria-labelledby="page-title">
+      <section
+        className={`phoneScreen ${view === "chat" ? "chatScreen" : ""}`}
+        aria-labelledby="page-title"
+      >
         {view === "slate" ? (
           <>
             <header className="appHeader">
