@@ -30,7 +30,6 @@ type ChatMessage = {
   answer?: string;
   retrievals?: Retrieval[];
   correlations?: Retrieval[];
-  responsePrompt?: string;
 };
 
 type MemoryResponse = {
@@ -39,7 +38,6 @@ type MemoryResponse = {
   message?: string;
   retrievals?: Retrieval[];
   correlations?: Retrieval[];
-  responsePrompt?: string;
   stats?: {
     database: string;
     correlations: number;
@@ -250,6 +248,9 @@ export default function Home() {
 
     try {
       const result = await callMemory({ type: "ask", text });
+      const visibleRetrievals = (result.retrievals || []).filter(
+        (retrieval) => retrieval.type !== "article",
+      );
       setMessages((current) => [
         ...current,
         {
@@ -259,9 +260,8 @@ export default function Home() {
             result.answer ||
             "ARIA does not have enough matching context to answer that cleanly yet.",
           answer: result.answer,
-          retrievals: result.retrievals || [],
+          retrievals: visibleRetrievals,
           correlations: result.correlations || [],
-          responsePrompt: result.responsePrompt,
         },
       ]);
       setStatus("SQLite memory ready");
@@ -520,12 +520,6 @@ export default function Home() {
                           </div>
                         ))}
                       </div>
-                    ) : null}
-                    {message.responsePrompt ? (
-                      <details className="responsePromptBox">
-                        <summary>Response prompt</summary>
-                        <pre className="responsePrompt">{message.responsePrompt}</pre>
-                      </details>
                     ) : null}
                   </article>
                 ))}

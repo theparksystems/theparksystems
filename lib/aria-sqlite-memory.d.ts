@@ -20,7 +20,6 @@ export function askSqliteMemory(
   answer: string;
   retrievals: AriaRetrieval[];
   correlations: AriaRetrieval[];
-  responsePrompt: string;
   stats: AriaMemoryStats;
 };
 
