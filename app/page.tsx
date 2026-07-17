@@ -135,7 +135,7 @@ function parseStoredMessages(value: string | null) {
 }
 
 export default function Home() {
-  const [view, setView] = useState<"slate" | "chat">("slate");
+  const [view, setView] = useState<"home" | "predictions" | "chat">("home");
   const [selectedId, setSelectedId] = useState(analystPicks[0].id);
   const [sessionId, setSessionId] = useState("");
   const [query, setQuery] = useState("");
@@ -311,23 +311,25 @@ export default function Home() {
     <main className="appShell">
       <section
         className={`phoneScreen ${view === "chat" ? "chatScreen" : ""}`}
-        aria-labelledby="page-title"
+        aria-labelledby={view === "chat" ? "chat-title" : "page-title"}
       >
-        {view === "slate" ? (
+        {view === "home" ? (
           <>
             <header className="appHeader">
-              <p className="eyebrow">PARKS Model // LACI</p>
+              <p className="eyebrow">ARIA // PARKS</p>
               <span className="liveBadge">Today</span>
             </header>
 
-            <h1 id="page-title">Buy / Sell / Hold</h1>
+            <h1 className="ariaLandingTitle" id="page-title">
+              ARIA
+            </h1>
 
             <section className="memoryHero" aria-labelledby="memory-title">
               <div className="botMark" aria-hidden="true">
                 <span />
               </div>
               <div className="memoryCopy">
-                <h2 id="memory-title">PARKS</h2>
+                <h2 id="memory-title">ARIA - A PARKS conversational model</h2>
                 <p>
                   Conversational memory writes to deployment-local SQLite. No
                   Supabase is used for chat retrieval. Site analytics may
@@ -337,7 +339,7 @@ export default function Home() {
               </div>
               <form className="memoryForm" onSubmit={askParks}>
                 <label className="srOnly" htmlFor="parks-query">
-                  Talk to PARKS
+                  Talk to ARIA
                 </label>
                 <textarea
                   id="parks-query"
@@ -347,10 +349,54 @@ export default function Home() {
                   value={query}
                 />
                 <button className="talkButton" disabled={isThinking} type="submit">
-                  {isThinking ? "Searching" : "Talk to PARKS"} <span>&gt;</span>
+                  {isThinking ? "Searching" : "Talk to ARIA"} <span>&gt;</span>
                 </button>
               </form>
             </section>
+
+            <button
+              className="quantLink"
+              onClick={() => setView("predictions")}
+              type="button"
+            >
+              <span>PARKS Quant predictions</span>
+              <strong>Buy / Sell / Hold</strong>
+            </button>
+
+            <section className="disclosurePanel" aria-label="Important disclosures">
+              <p>
+                Market commentary only. This is not investment, legal, tax, or
+                financial advice and is not an offer to buy or sell securities,
+                commodities, real estate, or any financial product.
+              </p>
+              <p>
+                ARIA chat retrieval stores local SQLite correlations for this
+                deployment. Google Analytics is used for site usage measurement.
+              </p>
+            </section>
+
+            <footer className="appFooter">
+              <span>The Park Systems</span>
+              <nav aria-label="Legal links">
+                <Link href="/privacy">Privacy</Link>
+                <Link href="/terms">Terms</Link>
+                <Link href="/contact">Contact</Link>
+              </nav>
+            </footer>
+          </>
+        ) : view === "predictions" ? (
+          <>
+            <header className="chatNav">
+              <button onClick={() => setView("home")} type="button">
+                &lt; Main
+              </button>
+              <div>
+                <p className="eyebrow">PARKS Quant</p>
+                <h1 id="page-title">PARKS Quant predictions</h1>
+              </div>
+            </header>
+
+            <h2 className="predictionsTitle">Buy / Sell / Hold</h2>
 
             <div className="pickStack" aria-label="Current analyst picks">
               {analystPicks.map((pick) => (
@@ -421,7 +467,7 @@ export default function Home() {
         ) : (
           <section className="oneChatView" aria-labelledby="chat-title">
             <header className="chatNav">
-              <button onClick={() => setView("slate")} type="button">
+              <button onClick={() => setView("home")} type="button">
                 &lt; Main
               </button>
               <div>
